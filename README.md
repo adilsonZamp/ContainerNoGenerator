@@ -1,4 +1,4 @@
-# Calculadora de Dígito Verificador de Número de Contêineres 
+# Calculadora de Dígito Verificador de Contêineres 
 É um programa simples em Python que pega um input, valida se ele tem o formato correto e calcula o último dígito (verificador) de acordo com a norma internacional ISO 6346.
 
 Segundo a norma, a quarta letra deve ser U, J ou Z para identificar unidades para frete geral (U), equipamento destacável relacionado ao contêiner (J) e reboques que transportam os contêineres (Z).
