@@ -17,23 +17,21 @@ print("Insira o número do container (sem verificador): ")
 print("Formato ABCD567890 ")
 numero = str(input()).upper().strip()
 
-# colocar as 4 letras como maiusculas e retirar espaços a mais (opcional)
-
-# valida tamanho
+# tamanho obrigatório
 if len(numero) != 10:
     mensagens = "Número fora do formato"
-    valido = False
-
-if not valido:
     print(mensagens)
     exit()
 
-# valida estrutura (sem simbolos, primeiro 4 letras e depois 6 números)
+# valida estrutura (sem simbolos, primeiro 3 letras, quarta letra sendo U, J ou Z e depois 6 números)
 for i in range(4):
     if numero[i] < 'A' or numero[i] > 'Z':
         valido = False
         mensagens += "Os 4 primeiros caracteres devem ser letras!\n"
         break
+
+if numero[3] not in ["U", "J", "Z"]:
+    mensagens += "A ISO 6346 determina que a quarta letra seja U, J ou Z\n"
 
 for i in range(4, 10):
     if numero[i] < '0' or numero[i] > '9':
@@ -41,36 +39,29 @@ for i in range(4, 10):
         mensagens += "Os 6 últimos caracteres devem ser números!\n"
         break
 
-print(numero, "Está válido?", valido)
-print("Mensagens: ", mensagens)
+print("O número:", numero, "é", "válido" if valido else "inválido")
 
-for i in range(10):
-    if i < 4:
-        valorNumero.append(listaValor[numero[i]])
-    else:
-        valorNumero.append(int(numero[i]))
+if not valido or mensagens:
+    print("Mensagens:\n"+mensagens)
 
-print("Potencia e soma:\n")
+if valido:
+    for i in range(10):
+        if i < 4:
+            valorNumero.append(listaValor[numero[i]])
+        else:
+            valorNumero.append(int(numero[i]))
 
-for i in range(10):
-    valorNumero[i] = valorNumero[i] * (2 ** i)
-    soma += valorNumero[i]
-    # print("ValorPosic:", valorNumero[i])
-    # print("SomaAtual:", soma)
+    for i in range(10):
+        valorNumero[i] = valorNumero[i] * (2 ** i)
+        soma += valorNumero[i]
+    
+    digitoVerificador = soma % 11
 
+    if digitoVerificador == 10:
+        digitoVerificador = 0
 
-digitoVerificador = soma % 11
+    numero += str(digitoVerificador)
 
-if digitoVerificador == 10:
-    digitoVerificador = 0
+    print("Número do Conteiner:", numero)
 
-numero += str(digitoVerificador)
-
-print("Número do Conteiner:", numero)
-
-# calculo do verificador
-# cada letra tem um valor (listaValor)
-# Cada um dos 10 primeiros caracteres (letras convertidas e números de série) é multiplicado por 2^i, onde i varia de 0 a 9 (da esquerda para a direita). 
-# soma todos os 10 valores
-# divide o resultado por 11 e pega o resto da divisão
-# O resto obtido é o dígito verificador. Se o resto for 10, o dígito é considerado 0 (ou o valor ajustado conforme a norma).
+print()
