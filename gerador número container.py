@@ -1,11 +1,14 @@
-i = 0
-
-numero = ""
-valido = True
-mensagens = ""
 listaValor = {
     "A":10, "B":12, "C":13, "D":14, "E":15, "F":16, "G":17, "H":18, "I":19, "J":20, "K":21, "L":23, "M":24, "N":25, "O":26, "P":27, "Q":28, "R":29, "S":30, "T":31, "U":32, "V":34, "W":35, "X":36, "Y":37, "Z":38
 }
+
+numero = ""
+digitoVerificador = 0
+valorNumero = []
+soma = 0
+
+valido = True
+mensagens = ""
 
 # adicionar função para gerar aleatorio
 # gerar interface e comando no terminal
@@ -24,30 +27,50 @@ if len(numero) != 10:
 if not valido:
     print(mensagens)
     exit()
-# valida estrutura (sem simbolos, 4 letras e 6 números)
 
-# verifica se os 4 primeiros caracteres sao letras [ok]
-
+# valida estrutura (sem simbolos, primeiro 4 letras e depois 6 números)
 for i in range(4):
     if numero[i] < 'A' or numero[i] > 'Z':
         valido = False
         mensagens += "Os 4 primeiros caracteres devem ser letras!\n"
         break
-# verifica se o resto sao numeros
+
 for i in range(4, 10):
     if numero[i] < '0' or numero[i] > '9':
         valido = False
         mensagens += "Os 6 últimos caracteres devem ser números!\n"
         break
 
-print(numero, valido)
+print(numero, "Está válido?", valido)
 print("Mensagens: ", mensagens)
 
-num = "A"
-print(listaValor.__getitem__(num))
-# calcular o verificador
+for i in range(10):
+    if i < 4:
+        valorNumero.append(listaValor[numero[i]])
+    else:
+        valorNumero.append(int(numero[i]))
+
+print("Potencia e soma:\n")
+
+for i in range(10):
+    valorNumero[i] = valorNumero[i] * (2 ** i)
+    soma += valorNumero[i]
+    # print("ValorPosic:", valorNumero[i])
+    # print("SomaAtual:", soma)
+
+
+digitoVerificador = soma % 11
+
+if digitoVerificador == 10:
+    digitoVerificador = 0
+
+numero += str(digitoVerificador)
+
+print("Número do Conteiner:", numero)
+
+# calculo do verificador
 # cada letra tem um valor (listaValor)
 # Cada um dos 10 primeiros caracteres (letras convertidas e números de série) é multiplicado por 2^i, onde i varia de 0 a 9 (da esquerda para a direita). 
-# soma tudo os 10 valores
+# soma todos os 10 valores
 # divide o resultado por 11 e pega o resto da divisão
 # O resto obtido é o dígito verificador. Se o resto for 10, o dígito é considerado 0 (ou o valor ajustado conforme a norma).
