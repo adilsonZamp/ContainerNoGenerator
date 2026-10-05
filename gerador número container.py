@@ -101,4 +101,4 @@ try:
     else: 
         print("Tente novamente... com 1 ou 2")
 except ValueError:
-    print("Tente novamente... Sem letra...")
+    print("Tente novamente... Sem letras ou emojis...")
