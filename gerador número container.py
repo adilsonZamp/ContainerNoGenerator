@@ -75,27 +75,30 @@ if escolha is None:
     print("Digite 1 para digitar o número ou 2 para gerar aleatoriamente")
     escolha = input()
 
-if int(escolha) == 1:
-    print("Insira o número do container (sem verificador): ")
-    print("Formato de Referência ABCD567890 ")
-    numero = str(input()).upper().strip()
+try:
+    if int(escolha) == 1:
+        print("Insira o número do container (sem verificador): ")
+        print("Formato de Referência ABCD567890 ")
+        numero = str(input()).upper().strip()
 
-    numero = geraDigito(numero);
+        numero = geraDigito(numero);
 
-    print("Número do Conteiner:", numero)
+        print("Número do Conteiner:", numero)
 
-    print()
-elif int(escolha) == 2:
-    print("Gerando Aleatório")
-    for i in range(3):
-        numero += random.choice(letras)
-    numero += 'U'
+        print()
+    elif int(escolha) == 2:
+        print("Gerando Aleatório")
+        for i in range(3):
+            numero += random.choice(letras)
+        numero += 'U'
 
-    for i in range(6):
-        numero += str(random.randint(0, 9))
+        for i in range(6):
+            numero += str(random.randint(0, 9))
 
-    numero = geraDigito(numero)
+        numero = geraDigito(numero)
 
-    print("Número gerado aleatoriamente:", numero)
-else: 
-    print("Tente novamente...")
+        print("Número gerado aleatoriamente:", numero)
+    else: 
+        print("Tente novamente... com 1 ou 2")
+except ValueError:
+    print("Tente novamente... Sem letra...")
